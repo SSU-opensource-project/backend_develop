@@ -36,7 +36,7 @@ SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY','django-insecure-%@_i7x702pynqe5
 DEBUG = False
 
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['findmycloth.herokuapp.com']
 
 
 # Application definition
