@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reset-css@5.0.1/reset.min.css"/>
+    <link rel="stylesheet" href="{% static 'css/common.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/login.css' %}" />
+
+    <title>이 옷 어디?</title>
+    </head>
+        <body>
+            <header>
+                <div class="inner">
+                    <a href="mainpage.html" class="logo">
+                    <img
+                        class="logoImg"
+                        src="./img/LogoImg.JPG"
+                        alt="logoImg"
+                    />
+                    </a>
+
+                    <ul class="submenu">
+                      <li><a href="mainpage.html">제품 검색</a></li>
+                      <li><a href="rcmdpage.html">추천 상품</a></li>
+                      <li><a href="service_info.html">서비스 소개</a></li>
+                      </ul>
+
+                    <ul class="usermenu">
+                    <li><a href="login.html">로그인</a></li>
+                    <li><a href="signup.html">회원가입</a></li>
+                    </ul>
+                </div>
+            </header>
+
+        <h1>Log In</h1>
+            <form method = "post" action = "{% url 'User:login' %}">
+                {% csrf_token %}
+        <div class="loginBox">
+          <div class="login">
+            <div class="login_id">
+              <input type="email" name="email" id="email" placeholder="Email 를 입력하세요" />
+            </div>
+            <div class="login_pw">
+              <input
+                type="password"
+                name="password"
+                id="password"
+                placeholder="패스워드를 입력하세요"
+              />
+            </div>
+            <div class="loginBtn">
+              <input
+                type="submit"
+                value="로그인"
+              />
+            </div>
+            <div class="notYetText">아직 회원이 아니신가요?</div>
+            <div class="gotoSignUp" onClick="location.href='signup.html'">
+              회원가입
+            </div>
+          </div>
+        </div>
+            </form>
+    
+        <footer>
+          <img
+          class="footerImg"
+          src="./img/footer_text.png"
+          alt="footerImage"
+          />
+        </footer>
+    
+      </body>
+</html>
