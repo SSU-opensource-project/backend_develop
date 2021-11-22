@@ -25,7 +25,7 @@
                     <a href="mainpage.html" class="logo">
                     <img
                         class="logoImg"
-                        src="./img/LogoImg.JPG"
+                        src="{% static 'images/LogoImg.JPG' %}"
                         alt="logoImg"
                     />
                     </a>
@@ -37,8 +37,8 @@
                       </ul>
 
                     <ul class="usermenu">
-                    <li><a href="login.html">로그인</a></li>
-                    <li><a href="signup.html">회원가입</a></li>
+                    <li><a href="{% url 'User:login' %}">로그인</a></li>
+                    <li><a href="{% url 'User:signup' %}">회원가입</a></li>
                     </ul>
                 </div>
             </header>
@@ -79,7 +79,7 @@
         <footer>
           <img
           class="footerImg"
-          src="./img/footer_text.png"
+          src="{% static 'images/footer_text.png' %}"
           alt="footerImage"
           />
       </footer>

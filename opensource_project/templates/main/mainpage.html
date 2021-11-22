@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <link rel="icon" href="img/reposeidon_logo.png" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reset-css@5.0.1/reset.min.css"/>
+    <link rel="stylesheet" href="{% static 'css/common.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/mainpage.css' %}" />
+    <script defer src="./js/mainpage.js"></script>
+
+    <title>이 옷 어디?</title>
+    </head>
+        <body>
+            <header>
+                <div class="inner">
+                    <a href="mainpage.html" class="logo">
+                    <img
+                        class="logoImg"
+                        src="{% static 'images/LogoImg.JPG' %}"
+                        alt="logoImg"
+                    />
+                    </a>
+
+                    <ul class="submenu">
+                        <li><a href="mainpage.html">제품 검색</a></li>
+                        <li><a href="rcmdpage.html">추천 상품</a></li>
+                        <li><a href="service_info.html">서비스 소개</a></li>
+                        </ul>
+                    <ul class="usermenu">
+                    <li><a href="mypage.html">마이페이지</a></li>
+                    <li><a href="{% url 'main:logout' %}">로그아웃</a></li>
+                    </ul>
+                </div>
+            </header>
+
+            <main>
+                   <form class="search_box" method= "POST" action = "{% url 'main:showpage' %}"
+                   enctype="multipart/form-data">
+                       {% csrf_token %}
+                <div class="img_section">
+                    <img
+                    class="mainpageImg"
+                    src="{% static 'images/mainpage_text.png' %}"
+                    alt="mainpageImg"
+                    />
+                </div>
+
+                <div class="search_section">
+                        <input
+                        type="file"
+                        id="upload_image"
+                        name="uploadImage"
+                        accept="image/*"
+                      />
+                    <div class="gotoShowpage_area">
+                        <button type="submit" class="search_btn" >
+                            <img src="{% static 'images/gotoShowpage_btn.png' %}" class="search_btn_img">
+                        </button>
+                    </div>
+                </div>
+               </form>
+            </main>
+
+            <footer>
+                <img
+                class="footerImg"
+                src="{% static 'images/footer_text.png' %}"
+                alt="footerImage"
+                />
+            </footer>
+    </body>
+</html>
