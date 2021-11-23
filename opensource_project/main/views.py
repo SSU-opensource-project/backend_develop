@@ -16,8 +16,7 @@ def index_view(request):
 def mainpage_view(request):
     if request.user.is_authenticated is None:  # 로그인확인
         return redirect('main:index')
-    if request.method == 'POST':
-        print('post')
+    print(request.user.username)
     return render(request, 'main/mainpage.html')
 
 
@@ -26,11 +25,15 @@ def showpage_view(request):
         return redirect('main:index')
     if request.method == 'POST':
         myimage = request.FILES.get('uploadImage')
-        image = Photo()
-        image.image = myimage
-        image.save()
-        print(myimage)
-        return render(request, 'main/showpage.html', {'myImage': image})
+        if myimage is not None:
+            name = request.user.username
+            image = Photo()
+            image.email = request.user.email
+            image.image = myimage
+            image.save()
+            return render(request, 'main/showpage.html', {'myImage': image, 'Username': name})
+        else:
+            redirect('main:mainpage')
 
     return redirect('main:mainpage')
 
