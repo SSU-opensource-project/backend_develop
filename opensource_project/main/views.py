@@ -37,6 +37,26 @@ def showpage_view(request):
 
     return redirect('main:mainpage')
 
+def mypage_view(request):
+    if request.user.is_authenticated is None:  # 로그인확인
+        return redirect('main:index')
+    if request.method == 'GET':
+        user = request.user
+        myimages = Photo.objects.order_by('-created_at') #최신순 정렬, 배열로 넘어옴
+        print(myimages)
+        if myimages is not None: # 사진 유무 파악
+            image = myimages[0]  # 젤 첫번째 사진
+            return render(request, 'main/mypage.html', {'bool': True, 'image': image, 'user': user})
+        else :
+            image = ""
+            return render(request, 'main/mypage.html', {'bool': False, 'image': image, 'user': user})
+
+
+
+def delete_photo(request,pid):
+    curphoto = Photo.objects.get(id=pid)
+    curphoto.delete()
+    return redirect('main:mypage')
 
 def logout_btn(request):
     logout(request)

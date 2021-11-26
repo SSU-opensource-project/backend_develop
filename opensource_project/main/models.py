@@ -25,3 +25,9 @@ class Photo(models.Model):
 
     def __str__(self):
         return self.email
+
+    def delete(self, *args, **kwargs): #삭제시 해당 경로 파일도 같이 삭제
+        os.remove(os.path.join(settings.MEDIA_ROOT, self.image.name))
+        super(Photo, self).delete(*args, **kwargs)
+
+

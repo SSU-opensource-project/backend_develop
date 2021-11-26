@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <link rel="icon" href="img/reposeidon_logo.png" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reset-css@5.0.1/reset.min.css"/>
+    <link rel="stylesheet" href="{% static 'css/common.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/mypage.css' %}" />
+
+    <title>이 옷 어디?</title>
+    </head>
+        <body>
+            <header>
+                <div class="inner">
+                    <a href="{% url 'main:mainpage' %}" class="logo">
+                    <img
+                        class="logoImg"
+                        src="./img/LogoImg.JPG"
+                        alt="logoImg"
+                    />
+                    </a>
+
+                    <ul class="submenu">
+                        <li><a href="mainpage.html">제품 검색</a></li>
+                        <li><a href="rcmdpage.html">추천 상품</a></li>
+                        <li><a href="service_info.html">서비스 소개</a></li>
+                        </ul>
+
+                    <ul class="usermenu">
+                     <li><a href="{% url 'main:mypage' %}">마이페이지</a></li>
+                    <li><a href="{% url 'main:logout' %}">로그아웃</a></li>
+                    </ul>
+                </div>
+            </header>
+
+            <main>
+               <div class="content_section">
+                   <div class="profile_section">
+                        <img
+                        class="profileImg"
+                        src="{% static 'img/profile_img.PNG' %}"
+                        alt="profileImg"
+                    />
+                    </div>
+                    <div class="profile_info_section">
+                        <button type="button" class="editBtn" onclick="location.href='editprofile.html'"><img class="editInfo_btnImg" src="/img/editInfo_btn.png"></button>
+                        <!-- 밑 div 태그 내부 부분에 user 정보 띄움 -->
+                        <div class="name_indicator"><b>이름 : </b>{{ user.username }}</div>
+                        <div class="gender_indicator"><b>성별 : </b>{{ user.gender }}</div>
+                        <div class="email_indicator"><b>E-mail : </b>{{ user.email }}</div>
+                    </div>
+                </div>
+
+                <div class="history_section">
+                    <div class="search_box">
+                        {% if bool %}
+                        <div class="history_element">
+                            <img class="exImg" src="{{image.image.url}}" alt="exImg"/>
+                            <a href = "{% url 'main:mypagedelete' image.id %}">
+                                <button class="deleteBtn" type="button" onclick="">X</button>
+                            </a>
+                        </div>
+                        {% else %}
+                        <div class="history_element">
+                            <img class="exImg" src=""/>
+                            <a href = "">
+                                <button class="deleteBtn" type="button" onclick="">X</button>
+                            </a>
+                        </div>
+                        {% endif %}
+
+                        <!-- <div class="history_element">
+                            <img class="exImg" src="./img/history_exImg.PNG" alt="exImg"/>
+                            <button class="deleteBtn" type="button" onclick="">X</button>
+                        </div>
+                        <div class="history_element">
+                            <img class="exImg" src="./img/history_exImg.PNG" alt="exImg"/>
+                            <button class="deleteBtn" type="button" onclick="">X</button>
+                        </div>
+                        <div class="history_element">
+                            <img class="exImg" src="./img/history_exImg.PNG" alt="exImg"/>
+                            <button class="deleteBtn" type="button" onclick="">X</button>
+                        </div> -->
+
+                    </div>
+                </div>
+            </main>
+
+            <footer>
+                <!-- <img
+                class="footerImg"
+                src="./img/footer_text.png"
+                alt="footerImage"
+                /> -->
+            </footer>
+    </body>
+</html>
