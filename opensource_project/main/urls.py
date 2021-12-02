@@ -8,5 +8,8 @@ urlpatterns = [
     path('showpage', views.showpage_view, name='showpage'),
     path('logout', views.logout_btn, name='logout'),
     path('mypage', views.mypage_view, name='mypage'),
-    path('mypage/<int:pid>/delete_photo',views.delete_photo, name='mypagedelete')
+    path('mypage/<int:pid>/delete_photo',views.delete_photo, name='mypagedelete'),
+    path('community', views.community_view, name='community'),
+    path('community_upload',views.community_upload_view, name='community_upload'),
+    path('community/<int:post_id>/detail', views.community_detail_view, name='community_detail'),
 ]

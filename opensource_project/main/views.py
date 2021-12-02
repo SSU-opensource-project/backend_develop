@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.contrib.auth import authenticate, login,logout
 from django.shortcuts import redirect
-from .models import Photo
+from .models import Photo,Posting
 
 # Create your views here.
 
@@ -61,3 +61,40 @@ def delete_photo(request,pid):
 def logout_btn(request):
     logout(request)
     return redirect('main:index')
+
+
+def community_view(request):
+    if request.user.is_authenticated is None:  # 로그인확인
+        return redirect('main:index')
+    if request.method == 'GET':
+        postings = Posting.objects.order_by('-pub_date') # 최신순으로 가져옴
+        for post in postings:
+            print(post.cloth_image)
+            if post.cloth_image == "": #오류방지:사진 없다면 삭제해버림
+                post.delete()
+        return render(request, 'main/community.html',{'posts': postings}) #배열로 넘김
+
+
+def community_upload_view(request):
+    if request.user.is_authenticated is None:  # 로그인확인
+        return redirect('main:index')
+    if request.method == 'GET':
+        return render(request, 'main/community_post.html')
+    elif request.method == 'POST':
+        inputImage = request.FILES.get('inputImage')
+        post = Posting()
+        post.title = request.POST['title']
+        post.writer = request.user.email
+        post.body = request.POST['body']
+        post.cloth_image = inputImage
+        post.save()
+        return redirect('main:community')
+
+
+def community_detail_view(request,post_id):
+    if request.user.is_authenticated is None:  # 로그인확인
+        return redirect('main:index')
+    if request.method == 'GET':
+        post = Posting.objects.get(id=post_id)
+        return render(request, 'main/community_detail.html',{'post':post})
+

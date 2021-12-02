@@ -33,12 +33,13 @@
 
                   <ul class="submenu">
                     <li><a href="#">제품 검색</a></li>
+                      <li><a href="community.html">커뮤니티</a></li>
                     <li><a href="#">추천 상품</a></li>
                     <li><a href="#">서비스 소개</a></li>
                     </ul>
 
                     <ul class="usermenu">
-                   <li><a href="mypage.html">마이페이지</a></li>
+                      <li><a href="{% url 'main:mypage' %}">마이페이지</a></li>
                     <li><a href="{% url 'main:logout' %}">로그아웃</a></li>
                     </ul>
                 </div>

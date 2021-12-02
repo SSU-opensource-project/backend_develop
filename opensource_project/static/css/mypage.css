@@ -1,37 +1,76 @@
-main {
-    text-align: center;
+.content_section {
+    float: left;
+    margin: 50px 100px auto 150px;
+    width: 20%;
 }
 
-main .img_section .mainpageImg {
+/* .content_section .profile_section {
+    float: left;
+} */
+
+.content_section .profileImg {
+    width: 250px;
+    height: 250px;
+    border-radius: 10px;
+}
+
+.content_section .profile_info_section .editBtn {
+    border: none;
+    outline: none;
+    background: none;
+    margin-left: 150px;
+}
+
+.content_section .profile_info_section .editInfo_btnImg {
+    width: 100px;
+}
+
+.content_section .profile_info_section {
+    font-weight: 500;
+    font-size: 15px;
+    margin-top: 10px;
+}
+
+.content_section .profile_info_section b{
+    font-weight: 700;
+    font-size: 15px;
+}
+
+.history_section .search_box {
+    margin-top: 55px;
+    width: 50%;
+    height: 400px;
+    float: left;
+    border: 2px solid #4A90E2;
+    background-color: #ffffff;
+    border-radius: 10px;
+}
+
+.history_section .search_box .exImg {
     position: relative;
-    margin-top: 40px;
-    width: 300px;
+    width: 200px;
+    margin-top: 10px;
+    margin-left: 10px;
+    border-radius: 10px;
 }
 
-main .search_section .search_box #upload_image {
-    width: 800px;
-    height: 300px;
-    background-image: url('/img/imageUpload_box.png'); 
-    background-repeat: no-repeat;
+.history_section .search_box .deleteBtn {
+    position: absolute;
+    top: 122px;
+    left: 685px;
+    
+    width: 25px;
+    height: 25px;
+    color: #ffffff;
+    font-weight: bold;
+    background-color: #4A90E2;
+
+    box-shadow: 0.5px 0.5px 0.5px #000;
+    border-radius: 50%;
+    border: none;
+    outline: none;
+}
+
+.footerImg {
     text-align: center;
-}
-
-main .search_section .gotoShowpage_area .gotoShowpage_img {
-    width: 300px;
-}
-
-main .search_section .gotoShowpage_area .search_btn {
-    width: 0px;
-    height: 0px;
-    text-decoration: none;
-    border: none;
-    outline: none;
-}
-
-main .search_section .gotoShowpage_area .search_btn_img {
-    width: 120px;
-    height: 50px;
-    text-decoration: none;
-    border: none;
-    outline: none;
 }
