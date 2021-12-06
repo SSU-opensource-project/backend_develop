@@ -16,7 +16,7 @@
     <link rel="icon" href="img/reposeidon_logo.png" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reset-css@5.0.1/reset.min.css"/>
     <link rel="stylesheet" href="{% static 'css/common.css' %}" />
-    <link rel="stylesheet" href="{% static 'css/mainpage.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/service_info.css' %}" />
     <script defer src="./js/mainpage.js"></script>
     <link rel="icon" href="{% static 'images/logo.png' %}" />
 
@@ -41,43 +41,18 @@
                       </ul>
 
                     <ul class="usermenu">
-                      <li><a href="{% url 'main:mypage' %}">마이페이지</a></li>
-                    <li><a href="{% url 'main:logout' %}">로그아웃</a></li>
+                    <li><a href="{% url 'User:login' %}">로그인</a></li>
+                    <li><a href="{% url 'User:signup' %}">회원가입</a></li>
                     </ul>
                 </div>
             </header>
 
             <main>
-                   <form class="search_box" method= "POST" action = "{% url 'main:showpage' %}"
-                   enctype="multipart/form-data">
-                       {% csrf_token %}
-                <div class="img_section">
-                    <img
-                    class="mainpageImg"
-                    src="{% static 'images/mainpage_text.png' %}"
-                    alt="mainpageImg"
-                    />
-                </div>
-
-                <div class="search_section">
-                        <img style="width: 800px;" id="preview-image" src="{% static 'images/imageUpload_box.png' %}">
-                        <input style="display: block;" type="file" id="upload_image" name = "uploadImage" />
-
-                    <div class="gotoShowpage_area">
-                        <button type="submit" class="search_btn" href="{% url 'main:showpage' %}">
-                            <img src="{% static 'images/gotoShowpage_btn.png' %}" class="search_btn_img">
-                        </button>
-                    </div>
-                </div>
-               </form>
-            </main>
-
-            <footer>
                 <img
-                class="footerImg"
-                src="{% static 'images/footer_text.png' %}"
-                alt="footerImage"
+                    class="serviceInfo_img"
+                    src="{% static 'images/serviceInfo_img.PNG' %}"
+                    alt="problemImg"
                 />
-            </footer>
+            </main>
     </body>
 </html>
