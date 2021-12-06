@@ -50,12 +50,11 @@
                    <div class="profile_section">
                         <img
                         class="profileImg"
-                        src="{% static 'img/profile_img.PNG' %}"
+                        src="{% static 'images/profile_img.PNG' %}"
                         alt="profileImg"
                     />
                     </div>
                     <div class="profile_info_section">
-                        <button type="button" class="editBtn" onclick="location.href='editprofile.html'"><img class="editInfo_btnImg" src="/img/editInfo_btn.png"></button>
                         <!-- 밑 div 태그 내부 부분에 user 정보 띄움 -->
                         <div class="name_indicator"><b>이름 : </b>{{ user.username }}</div>
                         <div class="gender_indicator"><b>성별 : </b>{{ user.gender }}</div>
