@@ -66,7 +66,14 @@
                    </div>
                    <div class="outputElement_section">
                         <div class="outputElement_box">
+                             {% for image in imageUrls %}
                             <img
+                            class="outputImg"
+                            src="{{ image }}"
+                            alt="logoImg"
+                            />
+                            {% endfor %}
+                           <!-- <img
                             class="outputImg"
                             src="./img/showPage_outputImg.JPG"
                             alt="logoImg"
@@ -100,12 +107,7 @@
                             class="outputImg"
                             src="./img/showPage_outputImg.JPG"
                             alt="logoImg"
-                            />
-                            <img
-                            class="outputImg"
-                            src="./img/showPage_outputImg.JPG"
-                            alt="logoImg"
-                            />
+                            />-->
                         </div>
                    </div>
                </div>
