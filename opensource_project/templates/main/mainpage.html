@@ -60,10 +60,10 @@
 
                 <div class="search_section">
                         <img style="width: 800px;" id="preview-image" src="{% static 'images/imageUpload_box.png' %}">
-                        <input style="display: block;" type="file" id="upload_image" name = "uploadImage" accept="image/*" />
+                        <input style="display: block;" type="file" id="upload_image" name = "uploadImage" />
 
                     <div class="gotoShowpage_area">
-                        <button type="submit" class="search_btn" >
+                        <button type="submit" class="search_btn" href="{% url 'main:showpage' %}">
                             <img src="{% static 'images/gotoShowpage_btn.png' %}" class="search_btn_img">
                         </button>
                     </div>
