@@ -20,19 +20,19 @@
         <body>
             <header>
                 <div class="inner">
-                    <a href="mainpage.html" class="logo">
+                    <a href="{% url 'main:mainpage' %}" class="logo">
                     <img
                         class="logoImg"
-                        src="./img/LogoImg.JPG"
+                        src="{% static 'images/LogoImg.JPG' %}"
                         alt="logoImg"
                     />
                     </a>
 
                     <ul class="submenu">
-                      <li><a href="mainpage.html">제품 검색</a></li>
-                      <li><a href="community.html">커뮤니티</a></li>
-                      <li><a href="rcmdpage.html">제품 추천</a></li>
-                      <li><a href="service_info.html">서비스 소개</a></li>
+                        <li><a href="{% url 'main:mainpage' %}">제품 검색</a></li>
+                        <li><a href="{% url 'main:community' %}">커뮤니티</a></li>
+                        <li><a href="rcmdpage.html">제품 추천</a></li>
+                        <li><a href="{% url 'main:service_info' %}">서비스 소개</a></li>
                       </ul>
 
                     <ul class="usermenu">
@@ -46,10 +46,11 @@
                 <div class="pageInfo">
                     <h1>스타일 커뮤니티</h1>
                     <h2>당신이 찾는 옷, 당신만의 스타일을 '이 옷 어디?'에서 나눠보세요.</h2>
-                    <input type="image" class="postButton" src="{% static 'images/post_btn.png' %}"onclick="location.href='{% url 'main:community_upload' %}'" >
+                    <input type="image" class="postButton" src="{% static 'images/post_btn.png' %}" href="{% url 'main:community_upload' %}" >
                 </div>
 
                 <div class="container">
+                    {% if posts %}
                      {% for post in posts %}
                 <a class="fashionItemBox" href="{% url 'main:community_detail' post.id %}">
                     <img src="{{post.cloth_image.url}}" class="fashionImage" />
@@ -63,6 +64,7 @@
                     </div>
                 </a>
                     {% endfor %}
+                {% endif %}
 
                 <!--
                 <a class="fashionItemBox" href="/community_detail.html">

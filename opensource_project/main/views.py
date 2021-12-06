@@ -68,11 +68,14 @@ def community_view(request):
         return redirect('main:index')
     if request.method == 'GET':
         postings = Posting.objects.order_by('-pub_date') # 최신순으로 가져옴
-        for post in postings:
-            print(post.cloth_image)
-            if post.cloth_image == "": #오류방지:사진 없다면 삭제해버림
-                post.delete()
-        return render(request, 'main/community.html',{'posts': postings}) #배열로 넘김
+        if postings is None:
+            return render(request, 'main/community.html',{'posts': False}) #배열로 넘김
+        else :
+            for post in postings:
+                print(post.cloth_image)
+                if post.cloth_image == "": #오류방지:사진 없다면 삭제해버림
+                    post.delete()
+            return render(request, 'main/community.html',{'posts': postings}) #배열로 넘김
 
 
 def community_upload_view(request):
@@ -98,3 +101,5 @@ def community_detail_view(request,post_id):
         post = Posting.objects.get(id=post_id)
         return render(request, 'main/community_detail.html',{'post':post})
 
+def service_info_view(request):
+    return render(request, 'main/service_info.html')

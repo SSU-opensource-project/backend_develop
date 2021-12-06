@@ -23,19 +23,19 @@
         <body>
             <header>
             <div class="inner">
-                <a href="mainpage.html" class="logo">
+                <a href="{% url 'main:mainpage' %}" class="logo">
                 <img
                     class="logoImg"
-                    src="./img/LogoImg.JPG"
+                    src="{% static 'images/LogoImg.JPG' %}"
                     alt="logoImg"
                 />
                 </a>
 
                 <ul class="submenu">
-                    <li><a href="mainpage.html">제품 검색</a></li>
-                     <li><a href="community.html">커뮤니티</a></li>
-                    <li><a href="rcmdpage.html">추천 상품</a></li>
-                    <li><a href="service_info.html">서비스 소개</a></li>
+                    <li><a href="{% url 'main:mainpage' %}">제품 검색</a></li>
+                    <li><a href="{% url 'main:community' %}">커뮤니티</a></li>
+                    <li><a href="rcmdpage.html">제품 추천</a></li>
+                    <li><a href="{% url 'main:service_info' %}">서비스 소개</a></li>
                     </ul>
 
                 <ul class="usermenu">

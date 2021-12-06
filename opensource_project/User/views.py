@@ -27,7 +27,7 @@ def login_view(request):
         if user is not None:
             print("yes")
             login(request, user) # 성공시 현재 로그인된 상태임.
-            return redirect('main:index')
+            return redirect('main:mainpage')
         else:
             print("no")
             return render(request, 'User/login.html')
