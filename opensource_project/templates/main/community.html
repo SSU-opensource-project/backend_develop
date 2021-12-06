@@ -31,10 +31,9 @@
                     <ul class="submenu">
                         <li><a href="{% url 'main:mainpage' %}">제품 검색</a></li>
                         <li><a href="{% url 'main:community' %}">커뮤니티</a></li>
-                        <li><a href="rcmdpage.html">제품 추천</a></li>
+                        <li><a href="{% url 'main:rcmdpage' %}">제품 추천</a></li>
                         <li><a href="{% url 'main:service_info' %}">서비스 소개</a></li>
                       </ul>
-
                     <ul class="usermenu">
                     <li><a href="mypage.html">마이페이지</a></li>
                 <li><a href="{% url 'main:logout' %}">로그아웃</a></li>

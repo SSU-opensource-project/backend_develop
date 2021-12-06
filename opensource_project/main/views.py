@@ -102,4 +102,7 @@ def community_detail_view(request,post_id):
         return render(request, 'main/community_detail.html',{'post':post})
 
 def service_info_view(request):
-    return render(request, 'main/service_info.html')
+    return render(request, 'main/service_info.html')    #서비스 소개 페이지
+
+def rcmd_view(request):
+    return render(request, 'main/rcmdpage.html')    #제품 추천 페이지

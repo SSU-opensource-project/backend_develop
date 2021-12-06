@@ -16,7 +16,7 @@
     <link rel="icon" href="img/reposeidon_logo.png" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reset-css@5.0.1/reset.min.css"/>
     <link rel="stylesheet" href="{% static 'css/common.css' %}" />
-    <link rel="stylesheet" href="{% static 'css/service_info.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/rcmdpage.css' %}" />
     <script defer src="./js/mainpage.js"></script>
 
     <title>이 옷 어디?</title>
@@ -25,11 +25,11 @@
             <header>
                 <div class="inner">
                     <a href="{% url 'main:mainpage' %}" class="logo">
-                    <img
-                        class="logoImg"
-                        src="{% static 'images/LogoImg.JPG' %}"
-                        alt="logoImg"
-                    />
+                        <img
+                            class="logoImg"
+                            src="{% static 'images/LogoImg.JPG' %}"
+                            alt="logoImg"
+                        />
                     </a>
 
                     <ul class="submenu">
@@ -37,21 +37,38 @@
                         <li><a href="{% url 'main:community' %}">커뮤니티</a></li>
                         <li><a href="{% url 'main:rcmdpage' %}">제품 추천</a></li>
                         <li><a href="{% url 'main:service_info' %}">서비스 소개</a></li>
-                      </ul>
+                        </ul>
 
                     <ul class="usermenu">
-                    <li><a href="{% url 'User:login' %}">로그인</a></li>
-                    <li><a href="{% url 'User:signup' %}">회원가입</a></li>
+                        <li><a href="{% url 'main:mypage' %}">마이페이지</a></li>
+                        <li><a href="{% url 'main:logout' %}">로그아웃</a></li>
                     </ul>
                 </div>
             </header>
 
             <main>
-                <img
-                    class="serviceInfo_img"
-                    src="{% static 'images/serviceInfo_img.PNG' %}"
-                    alt="problemImg"
-                />
+                <div class="inner__content">
+                    <div class="pageInfo">
+                        <h1>제품 추천</h1>
+                        <h2>이런 제품은 어떤가요? 회원님에게 어울리는 제품을 추천해드릴게요.</h2>
+                    </div>
+                    <div class="container">
+                    <!-- 랜덤으로 추천해주는 컨텐츠 -->
+                    <a class="fashionItemBox" href="#">
+                        <img src="{% static 'images/community_exImg.PNG' %}" class="fashionImage" />
+                    </a>
+
+                 
+                    </div>
+                </div>
             </main>
+
+            <footer>
+                <img
+                class="footerImg"
+                src="{% static 'images/footer_text.png' %}"
+                alt="footerImage"
+                />
+            </footer>
     </body>
 </html>

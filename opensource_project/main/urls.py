@@ -13,4 +13,5 @@ urlpatterns = [
     path('community_upload',views.community_upload_view, name='community_upload'),
     path('community/<int:post_id>/detail', views.community_detail_view, name='community_detail'),
     path('service_info', views.service_info_view, name="service_info"),
+    path('rcmdpage', views.rcmd_view, name='rcmdpage'),
 ]
