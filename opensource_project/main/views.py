@@ -36,14 +36,15 @@ def index_view(request):
 
 def mainpage_view(request):
     if request.user.is_authenticated is None:  # 로그인확인
-        return redirect('main:index')
+        return redirect('User:login')
     print(request.user.username)
+    print(request.user.email)
     return render(request, 'main/mainpage.html')
 
 
 def showpage_view(request):
     if request.user.is_authenticated is None:  # 로그인확인
-        return redirect('main:index')
+        return redirect('User:login')
     if request.method == 'POST':
         myimage = request.FILES.get('uploadImage')
         if myimage is not None:
@@ -61,7 +62,7 @@ def showpage_view(request):
 
 def mypage_view(request):
     if request.user.is_authenticated is None:  # 로그인확인
-        return redirect('main:index')
+        return redirect('User:login')
     if request.method == 'GET':
         user = request.user
         myimages = Photo.objects.order_by('-created_at') #최신순 정렬, 배열로 넘어옴
@@ -81,12 +82,12 @@ def delete_photo(request,pid):
 
 def logout_btn(request):
     logout(request)
-    return redirect('main:index')
+    return redirect('User:login')
 
 
 def community_view(request):
     if request.user.is_authenticated is None:  # 로그인확인
-        return redirect('main:index')
+        return redirect('User:login')
     if request.method == 'GET':
         postings = Posting.objects.order_by('-pub_date') # 최신순으로 가져옴
         if postings is None:
@@ -101,7 +102,7 @@ def community_view(request):
 
 def community_upload_view(request):
     if request.user.is_authenticated is None:  # 로그인확인
-        return redirect('main:index')
+        return redirect('User:login')
     if request.method == 'GET':
         return render(request, 'main/community_post.html')
     elif request.method == 'POST':
@@ -117,13 +118,16 @@ def community_upload_view(request):
 
 def community_detail_view(request,post_id):
     if request.user.is_authenticated is None:  # 로그인확인
-        return redirect('main:index')
+        return redirect('User:login')
     if request.method == 'GET':
         post = Posting.objects.get(id=post_id)
         return render(request, 'main/community_detail.html',{'post':post})
 
 def service_info_view(request):
-    return render(request, 'main/service_info.html')    #서비스 소개 페이지
+    if request.user.is_authenticated is None:  # 로그인확인
+        return  render(request, 'main/service_info.html',{'username':False})
+    else:
+        return render(request, 'main/service_info.html',{'username':True})    #서비스 소개 페이지
 
 def rcmd_view(request):
     return render(request, 'main/rcmdpage.html')    #제품 추천 페이지

@@ -41,8 +41,14 @@
                       </ul>
 
                     <ul class="usermenu">
+                    {% if username %}
+                    <li><a href="{% url 'main:mypage' %}">마이페이지</a></li>
+                    <li><a href="{% url 'main:logout' %}">로그아웃</a></li>
+                    {% else %}
                     <li><a href="{% url 'User:login' %}">로그인</a></li>
                     <li><a href="{% url 'User:signup' %}">회원가입</a></li>
+                    {% endif %}
+ 
                     </ul>
                 </div>
             </header>

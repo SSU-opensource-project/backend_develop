@@ -21,7 +21,7 @@
         <body>
             <header>
                 <div class="inner">
-                    <a href="mainpage.html" class="logo">
+                    <a href="{% url 'User:login' %}" class="logo">
                     <img
                         class="logoImg"
                         src="{% static 'images/LogoImg.JPG' %}"
@@ -29,11 +29,13 @@
                     />
                     </a>
 
+
                     <ul class="submenu">
-                      <li><a href="mainpage.html">제품 검색</a></li>
-                      <li><a href="rcmdpage.html">추천 상품</a></li>
-                      <li><a href="service_info.html">서비스 소개</a></li>
-                      </ul>
+                      <li><a href="{% url 'main:mainpage' %}">제품 검색</a></li>
+                      <li><a href="{% url 'main:community' %}">커뮤니티</a></li>
+                      <li><a href="{% url 'main:rcmdpage' %}">제품 추천</a></li>
+                      <li><a href="{% url 'main:service_info' %}">서비스 소개</a></li>
+                    </ul>
 
                     <ul class="usermenu">
                     <li><a href="{% url 'User:login' %}">로그인</a></li>
@@ -65,7 +67,7 @@
               />
             </div>
             <div class="notYetText">아직 회원이 아니신가요?</div>
-            <div class="gotoSignUp" onClick="location.href='{% url 'User:signup' %}'">
+            <div class="gotoSignUp" href="{% url 'User:signup' %}">
               회원가입
             </div>
           </div>

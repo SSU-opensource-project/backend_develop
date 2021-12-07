@@ -13,7 +13,7 @@
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reset-css@5.0.1/reset.min.css"/>
     <link rel="stylesheet" href="{% static 'css/common.css' %}" />
-    <link rel="stylesheet" href="{% static 'css/community.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/community_post.css' %}" />
     <link rel="icon" href="{% static 'images/logo.png' %}" />
 
     <title>이 옷 어디?</title>
@@ -53,13 +53,13 @@
 
                             <div class="contentFormBox">
                                 <div class="image_container">
-                                    <img style="width: 400px;" id="preview-image" src="{% static 'images/community_postImg.PNG %}">
+                                    <img style="width: 400px;" id="preview-image" src="{% static 'images/community_postImg.PNG' %}">
                                     <input style="display: block;" type="file" id="input-image" name = "inputImage">
                                 </div>
                                 <textarea name = "body" placeholder="내용을 작성해주세요" class="content" style="font-family: Noto Sans KR, sans-serif;font-size:15px;";></textarea>
                             </div>
                         </div>
-                        <input type="image" class="button" src="/img/post_btn.png">
+                        <input type="image" class="button" src="{% static 'images/post_btn.png' %}">
                     </div>
                 </form>
            

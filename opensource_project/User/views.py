@@ -14,7 +14,7 @@ def signup_view(request):
         if password1 == password2:
             user = users.objects.create_user(email, name, password1, gender)
             if user is not None:
-                return redirect('main:login')
+                return redirect('User:login')
     elif request.method == 'GET':
         return render(request, 'User/signup.html')
 
