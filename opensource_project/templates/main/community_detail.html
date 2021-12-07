@@ -14,29 +14,30 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reset-css@5.0.1/reset.min.css"/>
     <link rel="stylesheet" href="{% static 'css/common.css' %}" />
     <link rel="stylesheet" href="{% static 'css/community.css' %}" />
+    <link rel="icon" href="{% static 'images/logo.png' %}" />
 
     <title>이 옷 어디?</title>
     </head>
         <body>
             <header>
                 <div class="inner">
-                    <a href="mainpage.html" class="logo">
+                    <a href="{% url 'main:mainpage' %}" class="logo">
                     <img
                         class="logoImg"
-                        src="./img/LogoImg.JPG"
+                        src="{% static 'images/LogoImg.JPG' %}"
                         alt="logoImg"
                     />
                     </a>
 
                     <ul class="submenu">
-                      <li><a href="mainpage.html">제품 검색</a></li>
-                      <li><a href="community.html">커뮤니티</a></li>
-                      <li><a href="rcmdpage.html">제품 추천</a></li>
-                      <li><a href="service_info.html">서비스 소개</a></li>
+                        <li><a href="{% url 'main:mainpage' %}">제품 검색</a></li>
+                        <li><a href="{% url 'main:community' %}">커뮤니티</a></li>
+                        <li><a href="{% url 'main:rcmdpage' %}">제품 추천</a></li>
+                        <li><a href="{% url 'main:service_info' %}">서비스 소개</a></li>
                       </ul>
 
                     <ul class="usermenu">
-                        <li><a href="mypage.html">마이페이지</a></li>
+                        <li><a href="{% url 'mypage' %}">마이페이지</a></li>
                 <li><a href="{% url 'main:logout' %}">로그아웃</a></li>
                     </ul>
                 </div>
