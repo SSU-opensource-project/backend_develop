@@ -54,11 +54,17 @@
                         <h2>이런 제품은 어떤가요? 회원님에게 어울리는 제품을 추천해드릴게요.</h2>
                     </div>
                     <div class="container">
-                    <!-- 랜덤으로 추천해주는 컨텐츠 -->
-                    <a class="fashionItemBox" href="#">
+                    <!--  <a class="fashionItemBox" href="#">
                         <img src="{% static 'images/community_exImg.PNG' %}" class="fashionImage" />
-                    </a>
-
+                    </a>랜덤으로 추천해주는 컨텐츠 -->
+                      {% for image in imageUrls %}
+                            <img
+                            class="outputImg"
+                            src="{{ image }}"
+                            alt="logoImg"
+                            onclick="location.href='{{siteUrls }}';"
+                            />
+                        {% endfor %}
                  
                     </div>
                 </div>

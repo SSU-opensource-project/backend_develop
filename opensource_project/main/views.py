@@ -1,11 +1,12 @@
 import time
+import random
 
 from django.shortcuts import render
 from django.contrib.auth import authenticate, login,logout
 from django.shortcuts import redirect
 from numpy.compat import os_fspath
 
-from .models import Photo,Posting
+from .models import Photo,Posting,Recent
 from tensorflow.keras.preprocessing import image
 from tensorflow.keras.applications.vgg16 import VGG16, preprocess_input
 from tensorflow.keras.models import Model
@@ -49,6 +50,7 @@ def showpage_view(request):
         myimage = request.FILES.get('uploadImage')
         if myimage is not None:
             name = request.user.username
+            save_search_file(request.user,myimage)
             image = Photo()
             image.email = request.user.email
             image.image = myimage
@@ -59,6 +61,21 @@ def showpage_view(request):
             redirect('main:mainpage')
 
     return redirect('main:mainpage')
+
+
+def save_search_file(user,image): #최근 검색기록 3개만 저장
+    searched = Recent.objects.filter(email=user.email).order_by('created_at')
+    if len(searched) < 3:
+        new = Recent()
+        new.email = user.email
+        new.image = image
+        new.save()
+    else :
+        searched[0].delete()
+        new = Recent()
+        new.email = user.email
+        new.image = image
+        new.save()
 
 def mypage_view(request):
     if request.user.is_authenticated is None:  # 로그인확인
@@ -74,11 +91,38 @@ def mypage_view(request):
             return render(request, 'main/mypage.html', {'bool': False, 'image': image, 'user': user})
 
 
+def rcmdpage_view(request):
+    if request.user.is_authenticated is None:  # 로그인확인
+        return redirect('User:login')
+    default = Recent.objects.order_by('-created_at') #검색 기록 없다면 다른 유저의 가장 최근 검색기록으로
+    resent_search_list = Recent.objects.filter(email=request.user.email).order_by('-created_at') # 내검색기록 모두 가져오기 .
+
+    if len(resent_search_list) < 0 : #한번도 검색 안했음
+        result = [[], []]
+        result[0].append(MainFunction(default.image)[0][:20])
+        result[1].append(MainFunction(default.image)[0][:20])
+        return render(request, 'main/rcmdpage.html',{'imageUrls':result[0], 'siteUrls' :result[1][0]})  # 제품 추천 페이지
+    else: #무조건 10개는 뽑힘
+        result = [[], []]
+        for i in range(0, len(resent_search_list)):
+            tmp = MainFunction(resent_search_list[i].image)
+            for j in range(0,(10 - i*4)): # 가장최신 10개, 6개 4개 순으로 뽑음
+                randnum = random.randrange(0,21) #유사도 상위 20개 범위내에서 랜덤 추출
+                result[0].append(tmp[0][randnum])
+                result[1].append(tmp[1][randnum])
+        if len(resent_search_list) == 1: # 나머지 10개 추출
+            result[0].append(MainFunction(default.image)[0][:10])
+            result[1].append(MainFunction(default.image)[1][:10])
+        elif len(resent_search_list) == 2: # 나머지 4개 추출
+            result[0].append(MainFunction(default.image)[0][:4])
+            result[1].append(MainFunction(default.image)[1][:4])
+        return render(request, 'main/rcmdpage.html', {'imageUrls': result[0], 'siteUrls': result[1][0]})
 
 def delete_photo(request,pid):
     curphoto = Photo.objects.get(id=pid)
     curphoto.delete()
     return redirect('main:mypage')
+
 
 def logout_btn(request):
     logout(request)
@@ -94,7 +138,6 @@ def community_view(request):
             return render(request, 'main/community.html',{'posts': False}) #배열로 넘김
         else :
             for post in postings:
-                print(post.cloth_image)
                 if post.cloth_image == "": #오류방지:사진 없다면 삭제해버림
                     post.delete()
             return render(request, 'main/community.html',{'posts': postings}) #배열로 넘김
@@ -129,8 +172,7 @@ def service_info_view(request):
     else:
         return render(request, 'main/service_info.html',{'username':True})    #서비스 소개 페이지
 
-def rcmd_view(request):
-    return render(request, 'main/rcmdpage.html')    #제품 추천 페이지
+
 class FeatureExtractor:
     def __init__(self):
         print(os_fspath(os.getcwd()+"Total(Crop).npy"))
