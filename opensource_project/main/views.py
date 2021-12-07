@@ -89,11 +89,14 @@ def community_view(request):
         return redirect('main:index')
     if request.method == 'GET':
         postings = Posting.objects.order_by('-pub_date') # 최신순으로 가져옴
-        for post in postings:
-            print(post.cloth_image)
-            if post.cloth_image == "": #오류방지:사진 없다면 삭제해버림
-                post.delete()
-        return render(request, 'main/community.html',{'posts': postings}) #배열로 넘김
+        if postings is None:
+            return render(request, 'main/community.html',{'posts': False}) #배열로 넘김
+        else :
+            for post in postings:
+                print(post.cloth_image)
+                if post.cloth_image == "": #오류방지:사진 없다면 삭제해버림
+                    post.delete()
+            return render(request, 'main/community.html',{'posts': postings}) #배열로 넘김
 
 
 def community_upload_view(request):
@@ -119,7 +122,11 @@ def community_detail_view(request,post_id):
         post = Posting.objects.get(id=post_id)
         return render(request, 'main/community_detail.html',{'post':post})
 
+def service_info_view(request):
+    return render(request, 'main/service_info.html')    #서비스 소개 페이지
 
+def rcmd_view(request):
+    return render(request, 'main/rcmdpage.html')    #제품 추천 페이지
 class FeatureExtractor:
     def __init__(self):
         print(os_fspath(os.getcwd()+"Total(Crop).npy"))
@@ -181,7 +188,7 @@ def MainFunction(user_image):  # 인자로 사용자가 넣을 이미지 이름 
     for i in range(0, len(ids_list)):
         result_img_arr[1].append(df.iloc[ids_list[i]]['url'])
 
-    #   result_img_arr 받으면 됨
+    #  결과 테스트
     """ for i in range(len(result_img_arr)):
         print(result_img_arr[i])
     for i in range(len(result_img_arr[1])):  # 출력
@@ -191,23 +198,6 @@ def MainFunction(user_image):  # 인자로 사용자가 넣을 이미지 이름 
     return result_img_arr
 
 
-"""
-scores = [(dists[id-1], img_paths[id-1], id-1)
-          for id in ids]  # id값은 아마 제대로
-
-axes = []
-fig = plt.figure(figsize=(8, 8))
-for a in range(5*6):
-    score = scores[a]
-    axes.append(fig.add_subplot(5, 6, a+1))
-    subplot_title = str(round(score[0], 2)) + \
-        "/m" + str(score[2]+1)  # dists + id
-    axes[-1].set_title(subplot_title)
-    plt.axis('off')
-    plt.imshow(Image.open(score[1]))  # 이미지 창 열음
-fig.tight_layout()
-plt.show()
-"""
 # 메인
 
 
@@ -244,27 +234,4 @@ def Detect_Clothes(img, model_yolov3, eager_execution=True):
     return list_obj
 
 
-"""
-def Detect_Clothes_and_Crop(img_tensor, model, threshold=0.5):
-    global img_crop
-    global flag
-    list_obj = Detect_Clothes(img_tensor, model)
-
-    img = np.squeeze(img_tensor.numpy())
-    img_width = img.shape[1]
-    img_height = img.shape[0]
-
-    class_names = ['short_sleeve_top', 'long_sleeve_top',
-                   'vest', 'short_sleeve_outwear', 'long_sleeve_outwear', 'long_sleeve_dress', 'vest_dress', 'sling_dress', 'short_sleeve_dress']
-
-    flag = 0
-    for obj in list_obj:
-        if obj['label'] in class_names and obj['confidence'] > threshold:
-            # if obj['label'] == 'short_sleeve_top' and obj['confidence']>threshold:
-            img_crop = img[int(obj['y1']*img_height): int(obj['y2']*img_height),
-                           int(obj['x1']*img_width): int(obj['x2']*img_width), :]
-            flag = 1
-
-    return img_crop
-"""
 
