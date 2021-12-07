@@ -18,14 +18,13 @@
     <link rel="stylesheet" href="{% static 'css/common.css' %}" />
     <link rel="stylesheet" href="{% static 'css/mainpage.css' %}" />
     <script defer src="./js/mainpage.js"></script>
-    <link rel="icon" href="{% static 'images/logo.png' %}" />
 
     <title>이 옷 어디?</title>
     </head>
         <body>
             <header>
                 <div class="inner">
-                    <a href="{% url 'main:mainpage' %}" class="logo">
+                    <a href="mainpage.html" class="logo">
                     <img
                         class="logoImg"
                         src="{% static 'images/LogoImg.JPG' %}"
@@ -34,12 +33,11 @@
                     </a>
 
                     <ul class="submenu">
-                        <li><a href="{% url 'main:mainpage' %}">제품 검색</a></li>
-                        <li><a href="{% url 'main:community' %}">커뮤니티</a></li>
-                        <li><a href="{% url 'main:rcmdpage' %}">제품 추천</a></li>
-                        <li><a href="{% url 'main:service_info' %}">서비스 소개</a></li>
-                      </ul>
-
+                        <li><a href="mainpage.html">제품 검색</a></li>
+                         <li><a href="community.html">커뮤니티</a></li>
+                        <li><a href="rcmdpage.html">추천 상품</a></li>
+                        <li><a href="service_info.html">서비스 소개</a></li>
+                        </ul>
                     <ul class="usermenu">
                       <li><a href="{% url 'main:mypage' %}">마이페이지</a></li>
                     <li><a href="{% url 'main:logout' %}">로그아웃</a></li>
@@ -60,11 +58,14 @@
                 </div>
 
                 <div class="search_section">
-                        <img style="width: 800px;" id="preview-image" src="{% static 'images/imageUpload_box.png' %}">
-                        <input style="display: block;" type="file" id="upload_image" name = "uploadImage" />
-
+                        <input
+                        type="file"
+                        id="upload_image"
+                        name="uploadImage"
+                        accept="image/*"
+                      />
                     <div class="gotoShowpage_area">
-                        <button type="submit" class="search_btn" href="{% url 'main:showpage' %}">
+                        <button type="submit" class="search_btn" >
                             <img src="{% static 'images/gotoShowpage_btn.png' %}" class="search_btn_img">
                         </button>
                     </div>

@@ -17,7 +17,6 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reset-css@5.0.1/reset.min.css"/>
     <link rel="stylesheet" href="{% static 'css/common.css' %}" />
     <link rel="stylesheet" href="{% static 'css/mypage.css' %}" />
-    <link rel="icon" href="{% static 'images/logo.png' %}" />
 
     <title>이 옷 어디?</title>
     </head>
@@ -27,17 +26,17 @@
                     <a href="{% url 'main:mainpage' %}" class="logo">
                     <img
                         class="logoImg"
-                        src="{% static 'images/LogoImg.JPG' %}"
+                        src="./img/LogoImg.JPG"
                         alt="logoImg"
                     />
                     </a>
 
                     <ul class="submenu">
-                        <li><a href="{% url 'main:mainpage' %}">제품 검색</a></li>
-                        <li><a href="{% url 'main:community' %}">커뮤니티</a></li>
-                        <li><a href="{% url 'main:rcmdpage' %}">제품 추천</a></li>
-                        <li><a href="{% url 'main:service_info' %}">서비스 소개</a></li>
-                      </ul>
+                        <li><a href="mainpage.html">제품 검색</a></li>
+                         <li><a href="community.html">커뮤니티</a></li>
+                        <li><a href="rcmdpage.html">추천 상품</a></li>
+                        <li><a href="service_info.html">서비스 소개</a></li>
+                        </ul>
 
                     <ul class="usermenu">
                      <li><a href="{% url 'main:mypage' %}">마이페이지</a></li>
@@ -51,11 +50,12 @@
                    <div class="profile_section">
                         <img
                         class="profileImg"
-                        src="{% static 'images/profile_img.PNG' %}"
+                        src="{% static 'img/profile_img.PNG' %}"
                         alt="profileImg"
                     />
                     </div>
                     <div class="profile_info_section">
+                        <button type="button" class="editBtn" onclick="location.href='editprofile.html'"><img class="editInfo_btnImg" src="/img/editInfo_btn.png"></button>
                         <!-- 밑 div 태그 내부 부분에 user 정보 띄움 -->
                         <div class="name_indicator"><b>이름 : </b>{{ user.username }}</div>
                         <div class="gender_indicator"><b>성별 : </b>{{ user.gender }}</div>
