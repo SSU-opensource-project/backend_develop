@@ -50,7 +50,7 @@ def showpage_view(request):
             image.image = myimage
             image.save()
             result = MainFunction(image.image) # all result desc
-            return render(request, 'main/showpage.html', {'myImage': image, 'Username': name,'imageUrls':result[0], 'siteUrls' :result[1][0]})
+            return render(request, 'main/showpage.html', {'myImage': image, 'Username': name,'results': result})
         else:
             redirect('main:mainpage')
 
@@ -76,10 +76,13 @@ def mypage_view(request):
         return redirect('User:login')
     if request.method == 'GET':
         user = request.user
-        myimages = Photo.objects.order_by('-created_at') #최신순 정렬, 배열로 넘어옴
+        myimages = Photo.objects.filter(email=request.user.email).order_by('-created_at') #최신순 정렬, 배열로 넘어옴
+        images = []
+        for i in range(0,len(myimages)):
+            images.append({'url': (myimages[i].image.url.replace("%40", "@"))[1:], 'id': myimages[i].id})
+
         if myimages is not None: # 사진 유무 파악
-            image = myimages[0]  # 젤 첫번째 사진
-            return render(request, 'main/mypage.html', {'bool': True, 'image': image, 'user': user})
+            return render(request, 'main/mypage.html', {'bool': True, 'images': images, 'user': user})
         else :
             image = ""
             return render(request, 'main/mypage.html', {'bool': False, 'image': image, 'user': user})
@@ -96,33 +99,29 @@ def rcmdpage_view(request):
     resent_search_list = Recent.objects.filter(email=email).order_by('-created_at') # 내검색기록 모두 가져오기 .
     print(len(resent_search_list))
     if len(resent_search_list) <= 0 : #한번도 검색 안했음
-        result = [[], []]
+        result = []
         tmp = MainFunction(default[0].image) #검색 기록 없다면 다른 유저의 가장 최근 검색기록으로
         for i in range(0, 20):
-            result[0].append(tmp[0][i])
-            result[1].append(tmp[0][i])
-        return render(request, 'main/rcmdpage.html',{'imageUrls':result[0], 'siteUrls' :result[1][0]})  # 제품 추천 페이지
+            result.append(tmp[i])
+        return render(request, 'main/rcmdpage.html',{'imageUrls':result, 'siteUrls' :result[1][0]})  # 제품 추천 페이지
     else: #무조건 10개는 뽑힘
-        result = [[], []]
+        result = []
         for i in range(0, len(resent_search_list)):
             tmp = MainFunction(resent_search_list[i].image)
             for j in range(0,(10 - i*4)): # 가장최신 10개, 6개 4개 순으로 뽑음
                 randnum = random.randrange(0,21) #유사도 상위 20개 범위내에서 랜덤 추출
-                result[0].append(tmp[0][randnum])
-                result[1].append(tmp[1][randnum])
+                result.append(tmp[randnum])
         if len(resent_search_list) == 1: # 나머지 10개 추출은 전체 서버에서 가장 최신 검색기록
             tmp = MainFunction(default[0].image)
             for i in range (0,10):
                 randnum = random.randrange(0, 21)
-                result[0].append(tmp[0][randnum])
-                result[1].append(tmp[1][randnum])
+                result.append(tmp[randnum])
         elif len(resent_search_list) == 2: # 나머지 4개 추출  전체 서버에서 가장 최신 검색기록
             tmp = MainFunction(default[0].image)
             for i in range(0, 4):
                 randnum = random.randrange(0, 21)
-                result[0].append(tmp[0][randnum])
-                result[1].append(tmp[1][randnum])
-        return render(request, 'main/rcmdpage.html', {'imageUrls': result[0], 'siteUrls': result[1][0]})
+                result.append(tmp[randnum])
+        return render(request, 'main/rcmdpage.html', {'results': result })
 
 def delete_photo(request,pid):
     curphoto = Photo.objects.get(id=pid)
@@ -224,7 +223,7 @@ def MainFunction(user_image):  # 인자로 사용자가 넣을 이미지 이름 
     query = fe.extract(img)  # 이 작업까지 서버 실행 시 미리 해놓으면 그나마 빠를것같..
     # img_paths = fe.Img_features
     dists = np.linalg.norm(FEATURES - query, axis=1)
-    ids = np.argsort(dists)[:50]
+    ids = np.argsort(dists)[:30]
 
     # print(ids)
     ids_list = ids.tolist()
@@ -232,13 +231,12 @@ def MainFunction(user_image):  # 인자로 사용자가 넣을 이미지 이름 
     # print(df)
 
     # return 해줄 것
-    result_img_arr = [[], []]
+    result_img_arr = []
     for i in range(0, len(ids_list)):
-        result_img_arr[0].append(
-            df.iloc[ids_list[i]]['img_url'])
+        result_img_arr.append({'image': df.iloc[ids_list[i]]['img_url'],'siteurl': df.iloc[ids_list[i]]['url']})
 
-    for i in range(0, len(ids_list)):
-        result_img_arr[1].append(df.iloc[ids_list[i]]['url'])
+    """for i in range(0, len(ids_list)):
+        result_img_arr[1].append()"""
 
     #  결과 테스트
     """ for i in range(len(result_img_arr)):

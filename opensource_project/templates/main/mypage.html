@@ -69,21 +69,14 @@
 
                 <div class="history_section">
                     <div class="search_box">
-                        {% if bool %}
+                        {% for image in images %}
                         <div class="history_element">
-                            <img class="exImg" src="{{image.image.url}}" alt="exImg"/>
+                            <img class="exImg" src="{{image.url}}" alt="exImg"/>
                             <a href = "{% url 'main:mypagedelete' image.id %}">
                                 <button class="deleteBtn" type="button" onclick="">X</button>
                             </a>
                         </div>
-                        {% else %}
-                        <div class="history_element">
-                            <img class="exImg" src=""/>
-                            <a href = "">
-                                <button class="deleteBtn" type="button" onclick="">X</button>
-                            </a>
-                        </div>
-                        {% endif %}
+                        {% endfor %}
 
                         <!-- <div class="history_element">
                             <img class="exImg" src="./img/history_exImg.PNG" alt="exImg"/>

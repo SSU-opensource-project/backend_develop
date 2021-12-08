@@ -57,12 +57,12 @@
                     <!--  <a class="fashionItemBox" href="#">
                         <img src="{% static 'images/community_exImg.PNG' %}" class="fashionImage" />
                     </a>랜덤으로 추천해주는 컨텐츠 -->
-                      {% for image in imageUrls %}
+                      {% for result in results %}
                             <img
                             class="outputImg"
-                            src="{{ image }}"
+                            src="{{ result.image }}"
                             alt="logoImg"
-                            onclick="location.href='{{siteUrls }}';"
+                            onclick="location.href='{{result.siteurl }}';"
                             />
                         {% endfor %}
                  

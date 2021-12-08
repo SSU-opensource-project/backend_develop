@@ -67,12 +67,12 @@
                    </div>
                    <div class="outputElement_section">
                         <div class="outputElement_box">
-                            {% for image in imageUrls %}
+                            {% for result in results %}
                             <img
                             class="outputImg"
-                            src="{{ image }}"
+                            src="{{ result.image }}"
                             alt="logoImg"
-                            onclick="location.href='{{siteUrls}}';"
+                            onclick="location.href='{{result.siteurl}}'"
                             />
                             {% endfor %}
 

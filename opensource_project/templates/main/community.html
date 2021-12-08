@@ -49,9 +49,8 @@
                     <!-- <button type="submit" class="post_btn" href="{% url 'main:community_upload' %}">
                         <img src="{% static 'images/post_btn.png' %}" class="postButtonImg">
                     </button> -->
-                    <input type="image" class="postButton" src="{% static 'images/post_btn.png' %}"  onClick="location.href='{% url 'main:community_upload' %}'"  >
                 </div>
-
+                <input type="image" class="postButton" src="{% static 'images/post_btn.png' %}"  onClick="location.href='{% url 'main:community_upload' %}'"  >
                 <div class="container">
                     {% if posts %}
                      {% for post in posts %}
