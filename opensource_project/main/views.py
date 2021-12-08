@@ -28,23 +28,17 @@ from .utils_my import Read_Img_2_Tensor, Save_Image, Load_DeepFashion2_Yolov3
 model = Load_DeepFashion2_Yolov3()
 # Create your views here.
 BASE_DIR = Path(__file__).resolve().parent.parent
-def index_view(request):
-    if request.user.is_authenticated: # 로그인이 완료 됬다면.
-        return redirect('main:mainpage')
-    else:
-        return render(request, 'main/index.html')
-
 
 def mainpage_view(request):
-    if request.user.is_authenticated is None:  # 로그인확인
+    if request.user.is_anonymous:  # 로그인확인
         return redirect('User:login')
     print(request.user.username)
     print(request.user.email)
+
     return render(request, 'main/mainpage.html')
 
-
 def showpage_view(request):
-    if request.user.is_authenticated is None:  # 로그인확인
+    if request.user.is_anonymous:  # 로그인확인
         return redirect('User:login')
     if request.method == 'POST':
         myimage = request.FILES.get('uploadImage')
@@ -78,7 +72,7 @@ def save_search_file(user,image): #최근 검색기록 3개만 저장
         new.save()
 
 def mypage_view(request):
-    if request.user.is_authenticated is None:  # 로그인확인
+    if request.user.is_anonymous:  # 로그인확인
         return redirect('User:login')
     if request.method == 'GET':
         user = request.user
@@ -92,15 +86,21 @@ def mypage_view(request):
 
 
 def rcmdpage_view(request):
-    if request.user.is_authenticated is None:  # 로그인확인
-        return redirect('User:login')
-    default = Recent.objects.order_by('-created_at') #검색 기록 없다면 다른 유저의 가장 최근 검색기록으로
-    resent_search_list = Recent.objects.filter(email=request.user.email).order_by('-created_at') # 내검색기록 모두 가져오기 .
-
-    if len(resent_search_list) < 0 : #한번도 검색 안했음
+    if request.user.is_anonymous:  # 로그인 안한 유저
+        default = Recent.objects.order_by('-created_at')  # 검색 기록 없다면 다른 유저의 가장 최근 검색기록으로
+        email = default[0].email
+    else:  # 로그인 한 유저
+        default = Recent.objects.exclude(email=request.user.email).order_by('-created_at')  # 검색 기록 없다면 다른 유저의 가장 최근 검색기록으로
+        email = request.user.email
+    print(len(default))
+    resent_search_list = Recent.objects.filter(email=email).order_by('-created_at') # 내검색기록 모두 가져오기 .
+    print(len(resent_search_list))
+    if len(resent_search_list) <= 0 : #한번도 검색 안했음
         result = [[], []]
-        result[0].append(MainFunction(default.image)[0][:20])
-        result[1].append(MainFunction(default.image)[0][:20])
+        tmp = MainFunction(default[0].image) #검색 기록 없다면 다른 유저의 가장 최근 검색기록으로
+        for i in range(0, 20):
+            result[0].append(tmp[0][i])
+            result[1].append(tmp[0][i])
         return render(request, 'main/rcmdpage.html',{'imageUrls':result[0], 'siteUrls' :result[1][0]})  # 제품 추천 페이지
     else: #무조건 10개는 뽑힘
         result = [[], []]
@@ -110,12 +110,18 @@ def rcmdpage_view(request):
                 randnum = random.randrange(0,21) #유사도 상위 20개 범위내에서 랜덤 추출
                 result[0].append(tmp[0][randnum])
                 result[1].append(tmp[1][randnum])
-        if len(resent_search_list) == 1: # 나머지 10개 추출
-            result[0].append(MainFunction(default.image)[0][:10])
-            result[1].append(MainFunction(default.image)[1][:10])
-        elif len(resent_search_list) == 2: # 나머지 4개 추출
-            result[0].append(MainFunction(default.image)[0][:4])
-            result[1].append(MainFunction(default.image)[1][:4])
+        if len(resent_search_list) == 1: # 나머지 10개 추출은 전체 서버에서 가장 최신 검색기록
+            tmp = MainFunction(default[0].image)
+            for i in range (0,10):
+                randnum = random.randrange(0, 21)
+                result[0].append(tmp[0][randnum])
+                result[1].append(tmp[1][randnum])
+        elif len(resent_search_list) == 2: # 나머지 4개 추출  전체 서버에서 가장 최신 검색기록
+            tmp = MainFunction(default[0].image)
+            for i in range(0, 4):
+                randnum = random.randrange(0, 21)
+                result[0].append(tmp[0][randnum])
+                result[1].append(tmp[1][randnum])
         return render(request, 'main/rcmdpage.html', {'imageUrls': result[0], 'siteUrls': result[1][0]})
 
 def delete_photo(request,pid):
@@ -130,7 +136,7 @@ def logout_btn(request):
 
 
 def community_view(request):
-    if request.user.is_authenticated is None:  # 로그인확인
+    if request.user.is_anonymous:  # 로그인확인
         return redirect('User:login')
     if request.method == 'GET':
         postings = Posting.objects.order_by('-pub_date') # 최신순으로 가져옴
@@ -144,7 +150,7 @@ def community_view(request):
 
 
 def community_upload_view(request):
-    if request.user.is_authenticated is None:  # 로그인확인
+    if request.user.is_anonymous:  # 로그인확인
         return redirect('User:login')
     if request.method == 'GET':
         return render(request, 'main/community_post.html')
@@ -160,14 +166,14 @@ def community_upload_view(request):
 
 
 def community_detail_view(request,post_id):
-    if request.user.is_authenticated is None:  # 로그인확인
+    if request.user.is_anonymous:  # 로그인확인
         return redirect('User:login')
     if request.method == 'GET':
         post = Posting.objects.get(id=post_id)
         return render(request, 'main/community_detail.html',{'post':post})
 
 def service_info_view(request):
-    if request.user.is_authenticated is None:  # 로그인확인
+    if request.user.is_anonymous:  # 로그인확인
         return  render(request, 'main/service_info.html',{'username':False})
     else:
         return render(request, 'main/service_info.html',{'username':True})    #서비스 소개 페이지
