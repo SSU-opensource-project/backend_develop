@@ -36,7 +36,7 @@
                         <li><a href="{% url 'main:service_info' %}">서비스 소개</a></li>
                       </ul>
                     <ul class="usermenu">
-                    <li><a href="mypage.html">마이페이지</a></li>
+                    <li><a href="{% url 'main:mypage' %}">마이페이지</a></li>
                 <li><a href="{% url 'main:logout' %}">로그아웃</a></li>
                     </ul>
                 </div>
@@ -46,7 +46,10 @@
                 <div class="pageInfo">
                     <h1>스타일 커뮤니티</h1>
                     <h2>당신이 찾는 옷, 당신만의 스타일을 '이 옷 어디?'에서 나눠보세요.</h2>
-                    <input type="image" class="postButton" src="{% static 'images/post_btn.png' %}" href="{% url 'main:community_upload' %}" >
+                    <!-- <button type="submit" class="post_btn" href="{% url 'main:community_upload' %}">
+                        <img src="{% static 'images/post_btn.png' %}" class="postButtonImg">
+                    </button> -->
+                    <input type="image" class="postButton" src="{% static 'images/post_btn.png' %}"  onClick="location.href='{% url 'main:community_upload' %}'"  >
                 </div>
 
                 <div class="container">
@@ -65,67 +68,6 @@
                 </a>
                     {% endfor %}
                 {% endif %}
-
-                <!--
-                <a class="fashionItemBox" href="/community_detail.html">
-                    <img src="/img/community_exImg.PNG" class="fashionImage" />
-                    <div class="fashionInfo">
-                    <img src="/img/profile_img.png" class="writerImage" />
-                    <div class="fashionItemBoxText">
-                        <p class="title">올 가을 트렌치룩</p>
-                        <p class="writer">IT대생</p>
-                        <p class="pubDate">2021.12.01</p>
-                    </div>
-                    </div>
-                </a>
-
-                <a class="fashionItemBox" href="/community_detail.html">
-                    <img src="/img/community_exImg.PNG" class="fashionImage" />
-                    <div class="fashionInfo">
-                    <img src="/img/profile_img.png" class="writerImage" />
-                    <div class="fashionItemBoxText">
-                        <p class="title">올 가을 트렌치룩</p>
-                        <p class="writer">IT대생</p>
-                        <p class="pubDate">2021.12.01</p>
-                    </div>
-                    </div>
-                </a>
-
-                <a class="fashionItemBox" href="/community_detail.html">
-                    <img src="/img/community_exImg.PNG" class="fashionImage" />
-                    <div class="fashionInfo">
-                    <img src="/img/profile_img.png" class="writerImage" />
-                    <div class="fashionItemBoxText">
-                        <p class="title">올 가을 트렌치룩</p>
-                        <p class="writer">IT대생</p>
-                        <p class="pubDate">2021.12.01</p>
-                    </div>
-                    </div>
-                </a>
-
-                <a class="fashionItemBox" href="/community_detail.html">
-                    <img src="/img/community_exImg.PNG" class="fashionImage" />
-                    <div class="fashionInfo">
-                    <img src="/img/profile_img.png" class="writerImage" />
-                    <div class="fashionItemBoxText">
-                        <p class="title">올 가을 트렌치룩</p>
-                        <p class="writer">IT대생</p>
-                        <p class="pubDate">2021.12.01</p>
-                    </div>
-                    </div>
-                </a>
-
-                <a class="fashionItemBox" href="/community_detail.html">
-                    <img src="/img/community_exImg.PNG" class="fashionImage" />
-                    <div class="fashionInfo">
-                    <img src="/img/profile_img.png" class="writerImage" />
-                    <div class="fashionItemBoxText">
-                        <p class="title">올 가을 트렌치룩</p>
-                        <p class="writer">IT대생</p>
-                        <p class="pubDate">2021.12.01</p>
-                    </div>
-                    </div>
-                </a>-->
                 </div>
             </div>
         </body>

@@ -1,6 +1,6 @@
 .content_section {
     float: left;
-    margin: 50px 100px auto 150px;
+    margin: 50px 50px auto 150px;
     width: 20%;
 }
 
@@ -37,35 +37,57 @@
 }
 
 .history_section .search_box {
-    margin-top: 55px;
-    width: 50%;
-    height: 400px;
+    text-align: center;
+    display: grid;
+    grid-template-columns: 220px 220px 220px;
+    margin-top: 50px;
+    width: 55%;
+    height: 450px;
     float: left;
     border: 2px solid #4A90E2;
     background-color: #ffffff;
+    overflow:scroll;
     border-radius: 10px;
 }
 
+::-webkit-scrollbar {
+    width: 10px;
+  }
+   
+  ::-webkit-scrollbar-track {
+    background: #edf4fc;
+    border-radius: 5px;
+  }
+   
+  ::-webkit-scrollbar-thumb {
+    background: #aeccee;
+    border-radius: 5px;
+  }
+
 .history_section .search_box .exImg {
-    position: relative;
-    width: 200px;
+    display: flex;
+    flex-direction: row;
+    width: 190px;
+    height: 250px;
+    object-fit: cover;
     margin-top: 10px;
-    margin-left: 10px;
+    margin-left: 30px;
     border-radius: 10px;
+    border: 2px solid #94c0f1;
 }
 
 .history_section .search_box .deleteBtn {
-    position: absolute;
-    top: 122px;
-    left: 685px;
+    position: relative;
+    top: -250px;
+    left: 90px;
     
-    width: 25px;
-    height: 25px;
+    width: 22px;
+    height: 22px;
     color: #ffffff;
-    font-weight: bold;
+    font-weight: 600;
     background-color: #4A90E2;
 
-    box-shadow: 0.5px 0.5px 0.5px #000;
+    box-shadow: 0.3px 0.3px 0.3px #000;
     border-radius: 50%;
     border: none;
     outline: none;

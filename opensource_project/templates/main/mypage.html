@@ -58,8 +58,12 @@
                     <div class="profile_info_section">
                         <!-- 밑 div 태그 내부 부분에 user 정보 띄움 -->
                         <div class="name_indicator"><b>이름 : </b>{{ user.username }}</div>
-                        <div class="gender_indicator"><b>성별 : </b>{{ user.gender }}</div>
-                        <div class="email_indicator"><b>E-mail : </b>{{ user.email }}</div>
+                        {% if user.gender %}
+                       <div class="gender_indicator"><b>성별 : </b>여자</div>
+                        {% else %}
+                        <div class="gender_indicator"><b>성별 : </b>남자</div>
+                       {% endif %}
+                       <div class="email_indicator"><b>E-mail : </b>{{ user.email }}</div>
                     </div>
                 </div>
 
